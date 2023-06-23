@@ -9,7 +9,7 @@ Desenvolvido por: ***[Eduarda Reis](https://github.com/EduardaReis3332)*** e **E
 ## Como rodar e executar as atividades?
 
 Para rodar os testes, rode o seguinte comando
-Abra a pasta "fila-veiculos" e execute os arquivos:
+Abra as pastas "fila-veiculos/src/main/java/com/sd/filaveiculos" e execute os arquivos:
 ```
   FilaVeiculosApplication | Podutor | Consumidor
 ```
