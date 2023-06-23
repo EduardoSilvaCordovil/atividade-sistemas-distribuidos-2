@@ -1,4 +1,3 @@
-# ATIVIDADE-SISTEMAS-DISTRIBUIDOS
  Repositório dedicados às atividades de Sistemas Distribuídos.
 # Práticas Fila de Mensagem e Componentes Spring Web 
 
