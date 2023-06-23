@@ -1,4 +1,3 @@
- Repositório dedicados às atividades de Sistemas Distribuídos.
 # Práticas Fila de Mensagem e Componentes Spring Web 
 
 O projeto "Práticas Fila de Mensagem e Componentes Spring Web" se concentra em práticas de desenvolvimento com o uso de fila de mensagens e componentes Spring Web. 
