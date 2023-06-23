@@ -54,5 +54,4 @@ INSERT INTO veiculo (nomeCliente, marcaModeloVeiculo, anoModelo, valorVenda, dat
 INSERT INTO veiculo (nomeCliente, marcaModeloVeiculo, anoModelo, valorVenda, dataPublicacao) VALUES ('Rafael', 'Hyundai HB20', 2016, 27000.0, '2021-09-20 18:30:00');
 INSERT INTO veiculo (nomeCliente, marcaModeloVeiculo, anoModelo, valorVenda, dataPublicacao) VALUES ('Julia', 'Nissan Kicks', 2023, 45000.0, '2021-09-20 19:30:00');
 INSERT INTO veiculo (nomeCliente, marcaModeloVeiculo, anoModelo, valorVenda, dataPublicacao) VALUES ('Lucas', 'Jeep Renegade', 2020, 38000.0, '2021-09-20 20:30:00');
-
-``
+```
