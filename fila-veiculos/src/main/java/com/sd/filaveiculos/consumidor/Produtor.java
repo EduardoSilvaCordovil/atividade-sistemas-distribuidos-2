@@ -1,6 +1,6 @@
-package com.sd.filaveiculos.produtor;
+package com.sd.filaveiculos.consumidor;
 
-import com.sd.filaveiculos.veiculo.Veiculo;
+import com.sd.filaveiculos.consumidor.Veiculo;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Scanner;
@@ -20,18 +20,23 @@ public class Produtor {
     private static final String NOME_FILA = "FILA_VEICULOS";
 
     public static void main(String[] args) throws JMSException {
-        
+
+        /*ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(URL_BROKER);
+        QueueConnectionFactory queueConnectionFactory = (QueueConnectionFactory) connectionFactory;
+        QueueConnection queueConnection = queueConnectionFactory.createQueueConnection();
+        QueueSession queueSession = queueConnection.createQueueSession(false, QueueSession.AUTO_ACKNOWLEDGE);
+        Queue queue = queueSession.createQueue(NOME_FILA);
+        javax.jms.QueueSender sender = queueSession.createSender(queue);*/
         ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(URL_BROKER);
         QueueConnectionFactory queueConnectionFactory = (QueueConnectionFactory) connectionFactory;
         QueueConnection queueConnection = queueConnectionFactory.createQueueConnection();
         QueueSession queueSession = queueConnection.createQueueSession(false, QueueSession.AUTO_ACKNOWLEDGE);
         Queue queue = queueSession.createQueue(NOME_FILA);
         javax.jms.QueueSender sender = queueSession.createSender(queue);
-
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            
+
             System.out.println("Digite o nome do cliente:");
             String nomeCliente = scanner.nextLine();
             System.out.println("Digite a marca e modelo do veículo:");

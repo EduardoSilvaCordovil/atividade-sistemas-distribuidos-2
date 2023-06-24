@@ -1,4 +1,4 @@
-package com.sd.filaveiculos.veiculo;
+package com.sd.filaveiculos.consumidor;
 
 import java.io.Serializable;
 import java.util.Date;

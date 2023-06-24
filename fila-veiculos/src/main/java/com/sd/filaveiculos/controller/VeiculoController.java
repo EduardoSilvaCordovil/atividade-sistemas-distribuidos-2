@@ -1,6 +1,6 @@
 package com.sd.filaveiculos.controller;
 
-import com.sd.filaveiculos.veiculo.Veiculo;
+import com.sd.filaveiculos.consumidor.Veiculo;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;

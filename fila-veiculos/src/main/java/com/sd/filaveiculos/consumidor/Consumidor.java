@@ -1,6 +1,5 @@
 package com.sd.filaveiculos.consumidor;
 
-import com.sd.filaveiculos.veiculo.Veiculo;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -17,6 +16,7 @@ import javax.jms.QueueReceiver;
 import javax.jms.QueueSession;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.h2.jdbcx.JdbcConnectionPool;
 
 public class Consumidor {
 
@@ -25,8 +25,8 @@ public class Consumidor {
     private static final String URL_BD = "jdbc:h2:~/veiculos";
 
     public static void main(String[] args) throws JMSException, SQLException {
-        
-        Connection connection = DriverManager.getConnection(URL_BD, "sa", "");
+
+        /*Connection connection = DriverManager.getConnection(URL_BD, "sa", "");
 
         ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(URL_BROKER);
         QueueConnectionFactory queueConnectionFactory = (QueueConnectionFactory) connectionFactory;
@@ -35,26 +35,33 @@ public class Consumidor {
         QueueSession queueSession = queueConnection.createQueueSession(false, QueueSession.AUTO_ACKNOWLEDGE);
         Queue queue = queueSession.createQueue(NOME_FILA);
 
+        QueueReceiver receiver = queueSession.createReceiver(queue);*/
+        JdbcConnectionPool connectionPool = JdbcConnectionPool.create(URL_BD, "sa", "");
+
+        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(URL_BROKER);
+        QueueConnectionFactory queueConnectionFactory = (QueueConnectionFactory) connectionFactory;
+        QueueConnection queueConnection = queueConnectionFactory.createQueueConnection();
+        QueueSession queueSession = queueConnection.createQueueSession(false, QueueSession.AUTO_ACKNOWLEDGE);
+        Queue queue = queueSession.createQueue(NOME_FILA);
         QueueReceiver receiver = queueSession.createReceiver(queue);
         receiver.setMessageListener(message -> {
-            
+
             try {
                 ObjectMessage objectMessage = (ObjectMessage) message;
-
                 Veiculo veiculo = (Veiculo) objectMessage.getObject();
+                System.out.println("Recebendo mensagem: " + veiculo.toString());
 
-                System.out.println("RECEBENDO MENSAGEM: " + veiculo.toString());
+                try (Connection connection = connectionPool.getConnection()) {
 
-                PreparedStatement statement = connection.prepareStatement(
-                        "INSERT INTO veiculo (nomeCliente, marcaModeloVeiculo, anoModelo, valorVenda, dataPublicacao) VALUES (?, ?, ?, ?, ?)");
-
-                statement.setString(1, veiculo.getNomeCliente());
-                statement.setString(2, veiculo.getMarcaModeloVeiculo());
-                statement.setInt(3, veiculo.getAnoModelo());
-                statement.setDouble(4, veiculo.getValorVenda());
-                statement.setDate(5, new java.sql.Date(veiculo.getDataPublicacao().getTime()));
-                statement.executeUpdate();
-                
+                    PreparedStatement statement = connection.prepareStatement(
+                            "INSERT INTO veiculo (nomeCliente, marcaModeloVeiculo, anoModelo, valorVenda, dataPublicacao) VALUES (?, ?, ?, ?, ?)");
+                    statement.setString(1, veiculo.getNomeCliente());
+                    statement.setString(2, veiculo.getMarcaModeloVeiculo());
+                    statement.setInt(3, veiculo.getAnoModelo());
+                    statement.setDouble(4, veiculo.getValorVenda());
+                    statement.setDate(5, new java.sql.Date(veiculo.getDataPublicacao().getTime()));
+                    statement.executeUpdate();
+                }
             } catch (SQLException | JMSException e) {
                 e.printStackTrace();
             }
@@ -62,10 +69,13 @@ public class Consumidor {
 
         queueConnection.start();
 
-        System.out.println("CONSUMIDOR INICIADO...");
-
+        System.out.println("Consumer iniciado...");
         while (true) {
+            queueConnection.close();
+            receiver.close();
+            queueSession.close();
 
         }
     }
+
 }
