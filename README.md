@@ -79,6 +79,6 @@ INSERT INTO veiculo (nomeCliente, marcaModeloVeiculo, anoModelo, valorVenda, dat
 ![](https://github-contributor-stats.vercel.app/api?username=EduardoSilvaCordovil&limit=5&theme=radical&combine_all_yearly_contributions=true)
 
 ---
-[![](https://visitcount.itsvg.in/api?id=EduardoSilvaCordovil&icon=0&color=6)](https://visitcount.itsvg.in)
+<p align="left"> <img src="https://komarev.com/ghpvc/?username=eduardosilvacordovil&label=Profile%20views&color=0e75b6&style=flat" alt="eduardosilvacordovil" /> </p>
 
 <!-- Proudly created with GPRM ( https://gprm.itsvg.in ) -->
